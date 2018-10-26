@@ -1,0 +1,63 @@
+<div class="input-div">
+    <h3>User Details</h3>
+    <div class="form-group">
+        <label for="firstname" class="control-label">First Name:</label>
+        <input type="text" class="form-control" id="Task" placeholder="First Name" data-error="Enter  First Name" [(ngModel)]="FirstName" required>
+        <div class="help-block with-errors"></div>
+    </div>
+    <div class="form-group">
+        <label for="lastname" class="control-label">Last Name:</label>
+        <input type="text" class="form-control" id="Task" placeholder="Last Name" data-error="Enter  Last Name" [(ngModel)]="LastName" required>
+        <div class="help-block with-errors"></div>
+    </div>
+    <div class="form-group">
+        <label for="lastname" class="control-label">Employee ID:</label>
+        <input type="text" class="form-control" id="Task" placeholder="Employee ID" data-error="Enter  Employee ID" [(ngModel)]="EmployeeID" required>
+        <div class="help-block with-errors"></div>
+    </div>  
+   
+    <div class="form-group">
+        <button type="button" (click)="SaveUser()" class="btn btn-primary">Save</button>
+        <button type="button" (click)="ResetUser()" class="btn btn-primary">Reset</button>
+
+    </div>
+</div>
+<div>
+    <div class="input-div" >
+        <h3>View User</h3>
+        <div class="row">
+            <div class="col-sm-5">                
+                <input type="text" class="form-control" id="taskName" (input)="SearchUser()" [(ngModel)]="SearchName" placeholder="Search by name">
+            </div>
+            <div class="col-sm-1">
+                <span class="spansort">Sort</span>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" (click)="GetUser('firstname')" class="btn btn-primary">First Name</button>
+            </div>
+            <div class="col-sm-2">
+                <button type="button"(click)="GetUser('lastname')"  class="btn btn-primary">Last Name</button>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" (click)="GetUser('id')" class="btn btn-primary">ID</button>
+            </div>
+        </div>      
+    </div>
+    <div class="container margin-top10">
+        <div id="no-more-tables">
+            <table class="col-sm-12 table-bordered table-striped table-condensed cf">
+           
+                <tbody>
+                    <tr *ngFor="let user of userList" > 
+                        <td><div class="usertable-div">{{user.FirstName}}</div><div class="usertable-div">{{user.LastName}}</div><div class="usertable-div">{{user.EmployeeID}}</div></td>                      
+                        
+                        <td><div class="usertable-div"><button type="button" (click)="Edituser(user)" class="btn btn-primary btn-sm">Edit</button></div>
+                          <div class="usertable-div"><button type="button" (click)="DeleteUser(user)"  class="btn btn-primary btn-sm">Delete</button></div>
+                        </td>
+                    </tr>
+                  
+                </tbody>
+            </table>
+            </div>
+    </div>
+    </div>

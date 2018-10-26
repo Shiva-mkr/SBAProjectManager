@@ -1,0 +1,132 @@
+<div class="input-div" *ngIf = "AddTask" >
+    <h3>Task Details</h3>
+    <div class="form-group">
+            <label for="lastname" class="control-label">Project:</label>
+            <br>  
+            <input type="text" class="form-control " style="width: 70%;float:left" readonly="true"  id="Task" placeholder="Project ID" data-error="Enter  Last Name" [(ngModel)]="ProjectID" required>
+            <button type="button" data-toggle="modal" data-target="#myModal"  class="btn btn-primary floatleft">Search</button>
+            <div class="help-block with-errors"></div>
+        </div>
+    <div class="form-group">
+        <label for="firstname" class="control-label">Task:</label>
+        <input type="text" class="form-control" id="Task" placeholder="Task Name" data-error="Enter  Task Name" [(ngModel)]="TaskName" required>
+        <div class="help-block with-errors"></div>
+    </div>
+    <div class="form-group">
+        <label for="lastname" class="control-label">Priority:</label>
+        <input type="range" min="1" max="100" value="50" class="slider" [(ngModel)]='Priority'  id="myRange">
+        <!-- <ng2-slider min="6" max="23" startValue="9" endValue="21" stepValue="2" 
+[normalHandlerStyle]="{ 'background-color': 'green'}" [slidingHandlerStyle]="{ 'border-radius': '9px',
+      'background-color': 'red'
+}"> 
+</ng2-slider>-->
+        <div class="help-block with-errors"></div>
+    </div>
+    <div class="form-group">
+        <label for="lastname" class="control-label">Parent Task:</label>
+        <!-- <input type="text" class="form-control" id="parentTask" placeholder="Last Name" [(ngModel)]="ParentTask" data-error="Enter Parent Task" required> -->
+        <select class="form-control" name="Parent_ID" [(ngModel)]="ParentTask">
+          <option value='null' class="ng-binding">Please Select Task</option>
+          <option [ngValue]="parent.Parent_ID" *ngFor="let parent of ParentTaskList">
+              {{parent.Parent_Task}}
+          </option>
+      </select>
+        <div class="help-block with-errors"></div>
+    </div>
+    <div class="form-group">
+        <label for="lastname" class="control-label">Start Date:</label>
+        <input type="date" class="form-control" id="startdate"  placeholder="Start Date" [(ngModel)]="StartDate" data-error="Enter Start Date" required>
+        <!-- <angular2-date-picker [(ngModel)]="StartDate" [settings]="settings"></angular2-date-picker> -->
+
+        <div class="help-block with-errors"></div>
+    </div>
+    <div class="form-group">
+        <label for="lastname" class="control-label">End Date:</label>
+        <input type="date"  class="form-control" id="enddate" placeholder="End Date" [(ngModel)]="EndDate" data-error="Enter End Date" required>
+        <!-- <angular2-date-picker [(ngModel)]="EndDate" [settings]="settings"></angular2-date-picker> -->
+        <div class="help-block with-errors"></div>
+    </div>
+
+    <div class="form-group">
+            <label for="lastname" class="control-label">User:</label>
+            <br>  
+            <input type="text" class="form-control " style="width: 70%;float:left" readonly="true"  id="Task" placeholder="Employee ID" data-error="Enter  Last Name" [(ngModel)]="EmployeeID" required>
+            <button type="button" data-toggle="modal" data-target="#employeemodal"  class="btn btn-primary floatleft">Search</button>
+            <div class="help-block with-errors"></div>
+        </div>
+
+    <div class="form-group">
+        <button type="button" (click)="CreateTask()" class="btn btn-primary">Save Task</button>
+        <button type="button" (click)="ResetTaskData()" class="btn btn-primary">Reset</button>
+
+    </div>
+</div>
+<div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Project Data</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="no-more-tables">
+                    <table class="col-sm-12 table-bordered table-striped table-condensed cf">
+                   
+                        <tbody>
+                            <tr *ngFor="let project of projectlist" > 
+                                <!-- <td><div class="usertable-div">{{user.FirstName}}</div><div class="usertable-div">{{user.LastName}}</div><div class="usertable-div">{{user.EmployeeID}}</div></td>  -->
+                                <td><a (click)="GetProject(project.Project_ID)">{{project.Project}}</a></td>
+                            </tr>
+                          
+                        </tbody>
+                    </table>
+                    </div>
+            </div>
+      
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+      
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" id="employeemodal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Employee Data</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+          
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div id="no-more-tables">
+                        <table class="col-sm-12 table-bordered table-striped table-condensed cf">
+                       
+                            <tbody>
+                                <tr *ngFor="let user of userList" > 
+                                    <!-- <td><div class="usertable-div">{{user.FirstName}}</div><div class="usertable-div">{{user.LastName}}</div><div class="usertable-div">{{user.EmployeeID}}</div></td>  -->
+                                    <td><a (click)="GetEmployee(user.EmployeeID)">{{user.FirstName}} {{user.LastName}}</a></td>
+                                </tr>
+                              
+                            </tbody>
+                        </table>
+                        </div>
+                </div>
+          
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+          
+              </div>
+            </div>
+          </div>

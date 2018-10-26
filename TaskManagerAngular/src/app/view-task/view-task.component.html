@@ -1,0 +1,65 @@
+<div>
+    <div class="input-div" >
+        <h3>View Task</h3>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="Task" class="control-label">Task:</label>
+                <input type="text" class="form-control" id="taskName" [(ngModel)]="searchTask" placeholder="Task Name">
+            </div>
+            <div class="col-sm-6">
+                <label for="Parent Task" class="control-label">Parent Task:</label>
+                <input type="text" class="form-control" id="parentTask" [(ngModel)]="searchPTask" placeholder="Parent Task">
+            </div>
+        </div>
+        <div class="row margin-top10">
+            <div class="col-sm-3">
+                <label for="Task" class="control-label">Priority From:</label>
+                <input type="text" class="form-control" id="priorityfrom" [(ngModel)]="searchpriorityFrom" placeholder="Priority From">
+            </div>
+            <div class="col-sm-3">
+                <label for="Parent Task" class="control-label">Priority To:</label>
+                <input type="text" class="form-control" id="priorityTo"[(ngModel)]="SearchPriorityTo" placeholder="Priority To">
+            </div>
+            <div class="col-sm-3">
+                <label for="Task" class="control-label">Start Date:</label>
+                <input type="text" class="form-control" [(ngModel)]="searchFromDate" id="startdate" placeholder="Start Date">
+            </div>
+            <div class="col-sm-3">
+                <label for="Parent Task" class="control-label">End Date:</label>
+                <input type="text" class="form-control" [(ngModel)]="searchToDate" id="endDate" placeholder="End Date">
+            </div>
+        </div>
+        <div class="row margin-top10">
+            <button type="button" (click)="SearchTask()" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+    <div class="container margin-top10">
+        <div id="no-more-tables">
+        <table class="col-sm-12 table-bordered table-striped table-condensed cf">
+            <thead class="cf">
+                <tr>
+                    <th>Task </th>
+                    <th>Parent</th>
+                    <th>Priority</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th colspan="2">Action</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let task of TaskList" > 
+                    <td data-title="Task">{{task.Task}}</td>
+                    <td data-title="Parent">{{task.ParentTask}}</td>
+                    <td data-title="Priority">{{task.Priority}}</td>
+                    <td data-title="Start">{{task.StartDate |date:'MM-dd-yyyy'}}</td>
+                    <td data-title="End">{{task.EndDate|date:'MM-dd-yyyy'}}</td>
+                    
+                    <td><button type="button" (click)='EditTask(task)' class="btn btn-primary btn-sm">Edit</button>
+                    <button *ngIf="task.IsTaskEnded!=1" type="button" (click)='EndTask(task)'  class="btn btn-primary btn-sm">End Task</button></td>
+                </tr>
+            </tbody>
+        </table>
+            </div>
+    </div>
+    </div>

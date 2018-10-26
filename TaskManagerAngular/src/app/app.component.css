@@ -1,0 +1,147 @@
+
+
+/* customized carousel */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+footer {
+   
+    background-color:black;
+}
+.footer,
+.push {
+    height: 50px;
+}
+.wrapper{
+   
+    min-height: 100%;
+    margin: 0 auto -100px;
+}
+
+.input-div{
+  width:40%;
+  margin:0px auto;
+
+}
+.position-relative {
+    position:relative;
+}
+.margin-top10{
+    margin-top:10px;
+}
+.table-bordered {
+    border: none;
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .input-div {
+        width: 90%;
+        margin: 0px auto;
+    }
+    .wrapper {
+        padding: 20px;
+        min-height: 100%;
+        margin: 0 auto -50px;
+    }
+    .table-bordered{
+        border:none;
+    }
+}
+
+
+
+/* Table Css*/
+@media only screen and (max-width: 800px) {
+    /* Force table to not be like tables anymore */
+    #no-more-tables table,
+    #no-more-tables thead,
+    #no-more-tables tbody,
+    #no-more-tables th,
+    #no-more-tables td,
+    #no-more-tables tr {
+        display: block;
+    }
+
+        /* Hide table headers (but not display: none;, for accessibility) */
+        #no-more-tables thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+    #no-more-tables tr {
+        /*border: 1px solid #ccc;*/
+    }
+
+    #no-more-tables td {
+        /* Behave like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        white-space: normal;
+        text-align: left;
+    }
+
+        #no-more-tables td:before {
+            /* Now like a table header */
+            position: absolute;
+            /* Top/left values mimic padding */
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        /*
+Label the data
+*/
+        #no-more-tables td:before {
+            content: attr(data-title);
+        }
+}
+
+/*Slider*/
+
+.slidecontainer {
+    width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+    -webkit-appearance: none; /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 25px; /* Specified height */
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+    /* Mouse-over effects */
+    .slider:hover {
+        opacity: 1; /* Fully shown on mouse-over */
+    }
+
+    /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none; /* Override default look */
+        appearance: none;
+        width: 25px; /* Set a specific slider handle width */
+        height: 25px; /* Slider handle height */
+        background: #4CAF50; /* Green background */
+        cursor: pointer; /* Cursor on hover */
+    }
+
+    .slider::-moz-range-thumb {
+        width: 25px; /* Set a specific slider handle width */
+        height: 25px; /* Slider handle height */
+        background: #4CAF50; /* Green background */
+        cursor: pointer; /* Cursor on hover */
+    }

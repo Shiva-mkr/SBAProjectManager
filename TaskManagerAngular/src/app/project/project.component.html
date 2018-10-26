@@ -1,0 +1,125 @@
+<div class="input-div">
+    <h3>Project Details</h3>
+    <div class="form-group">
+        <label for="firstname" class="control-label">Project:</label>
+        <input type="text" class="form-control" id="Task" placeholder="First Name" data-error="Enter  First Name" [(ngModel)]="ProjectName" required>
+        <div class="help-block with-errors"></div>
+    </div>
+    <div class="form-group">
+        <label for="lastname" class="control-label floatleft">Set Start and End Date</label>
+        <input type="date" class="form-control floatleft date-field" id="Task" placeholder="Last Name" data-error="Enter  Last Name" [(ngModel)]="StartDate" required>
+        <input type="date" class="form-control floatleft date-field" id="Task" placeholder="Last Name" data-error="Enter  Last Name" [(ngModel)]="EndDate" required>
+        <div class="help-block with-errors"></div>
+    </div>
+    <div class="form-group div-priority">
+        <label for="lastname" class="control-label">Priority:</label>
+        <input type="range" min="1" max="100" value="50" class="slider" [(ngModel)]='Priority'  id="myRange">
+        <div class="help-block with-errors"></div>
+    </div>  
+    <div class="form-group">
+        <label for="lastname" class="control-label">Manager:</label>
+        <br>  
+        <input type="text" class="form-control floatleft" style="width: 70%;" readonly="true"  id="Task" placeholder="Manager ID" data-error="Enter  Last Name" [(ngModel)]="EmployeeID" required>
+        <button type="button" data-toggle="modal" data-target="#myModal"  class="btn btn-primary floatleft">Search</button>
+        <div class="help-block with-errors"></div>
+    </div>
+    <div class="form-group div-priority">
+        <button type="button" (click)="SaveProject()" class="btn btn-primary">Save</button>
+        <button type="button" (click)="ResetProject()" class="btn btn-primary">Reset</button>
+
+    </div>
+</div>
+<div>
+    <div class="input-div" >
+        <h3>View Project</h3>
+        <div class="row">
+            <div class="col-sm-12">                
+                <input type="text" class="form-control" id="taskName" (input)="SearchProject()" [(ngModel)]="SearchName" placeholder="Search by name">
+            </div>
+        </div>
+        <div class="row">
+           
+            <div class="col-sm-1  ">
+                <span class="spansort">Sort</span>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" (click)="GetProjectList('startdate')" class="btn btn-primary">StartDate</button>
+            </div>
+            <div class="col-sm-2">
+                <button type="button"(click)="GetProjectList('enddate')"  class="btn btn-primary">EndDate</button>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" (click)="GetProjectList('priority')" class="btn btn-primary">Priority</button>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" (click)="GetProjectList('completed')" class="btn btn-primary">Completed</button>
+            </div>
+        </div>      
+    </div>
+    <div class="container margin-top10">
+        <div id="no-more-tables">
+            <table class="col-sm-12 table-bordered table-striped table-condensed cf">
+           
+                <tbody>
+                    <tr *ngFor="let proj of projectlist" > 
+                        <td><div class="usertable-div" style="width:100%">{{proj.Project}}</div>
+                          <div style="width:48%;float:left;"><div style="float:left">No of task:</div><div style="float:left;margin-left: 10px;" class="usertable-div">{{proj.NoofTask}}</div>
+                        </div>
+                        <div style="width:48%;float:left;"><div style="float:left;">Completed:</div> 
+                        <div style="float:left;margin-left: 10px;" class="usertable-div">{{proj.NoofTaskCompleted}}</div></div>
+                        <div style="width:48%;float:left;">
+                          <div style="float:left">Start Date:</div>
+                        <div style="float:left;margin-left: 10px;" class="usertable-div" style="width:100%">{{proj.StartDate}}</div></div>
+                        <div style="width:48%;float:left;">
+                          <div style="float:left">End Date:</div>
+                          <div style="float:left;margin-left: 10px;" class="usertable-div">{{proj.EndDate}}</div>
+                        </div>
+                        </td>                      
+                        <td>
+                          <div>Priority</div>
+                          <div><input type="range" min="1" max="100"  class="slider" [(ngModel)]=proj.Priority id="myRange"></div>
+                        </td>
+                        <td><div class="usertable-div"><button type="button" (click)="EditProject(proj)" class="btn btn-primary btn-sm">Update</button></div>
+                          <div class="usertable-div"><button type="button" (click)="DeleteProejct(proj)"  class="btn btn-primary btn-sm">Suspend</button></div>
+                        </td>
+                    </tr>
+                  
+                </tbody>
+            </table>
+            </div>
+    </div>
+    </div>
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Employee Data</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="no-more-tables">
+                    <table class="col-sm-12 table-bordered table-striped table-condensed cf">
+                   
+                        <tbody>
+                            <tr *ngFor="let user of userList" > 
+                                <!-- <td><div class="usertable-div">{{user.FirstName}}</div><div class="usertable-div">{{user.LastName}}</div><div class="usertable-div">{{user.EmployeeID}}</div></td>  -->
+                                <td><a (click)="GetEmployee(user.EmployeeID)">{{user.FirstName}} {{user.LastName}}</a></td>
+                            </tr>
+                          
+                        </tbody>
+                    </table>
+                    </div>
+            </div>
+      
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+      
+          </div>
+        </div>
+      </div>
