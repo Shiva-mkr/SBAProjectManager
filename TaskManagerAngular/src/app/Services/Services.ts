@@ -11,15 +11,16 @@ export class SharedService {
 
   taskdata: any;
   taskList: any;
-  //url='http://172.18.1.114:81//api/Task'
- url='http://localhost:50451/api/Task';
- Userurl='http://localhost:50451/api/User';
+  url='http://172.18.1.114:81//api/Task'
+ //url='http://localhost:50451/api/Task';
+ //Userurl='http://localhost:50451/api/User';
+ Userurl='http://172.18.1.114:81/api/User';
 
 constructor(private httpServ: Http) { }
   getTaskListUri = this.url+"/GetTaskList";
 
-  GetTaskList(){
-    return this.httpServ.get(this.getTaskListUri);
+  GetTaskList(data:string){
+    return this.httpServ.get(this.getTaskListUri+ "?sortBy="+data);
   }
 
   getTaskUri = this.url+"/GetTaskById";

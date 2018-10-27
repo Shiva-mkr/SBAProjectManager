@@ -3,6 +3,8 @@ import { SharedService } from '../../app/Services/Services';
 import { Http, Response,HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { Task } from './../Services/Model';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 declare var $: any;
 
 @Component({
@@ -11,7 +13,7 @@ declare var $: any;
   styleUrls: ['./view-task.component.css']
 })
 export class ViewTaskComponent implements OnInit {
-
+  //router: Router;
   title = 'TaskManagerAngular';
   AddTask=true;
   ViewTask=false;
@@ -22,7 +24,7 @@ export class ViewTaskComponent implements OnInit {
   ParentTask='';
   StartDate='';
   EndDate:string;  
-  
+  projectList:any;
    searchTask='';  
    searchPTask='';
    searchpriorityFrom=0;
@@ -35,11 +37,14 @@ TaskListMaster:any;
   Task_ID:number=0;
   searchFromDate='';
   searchToDate='';
-  constructor(public _service: SharedService) { }
+  constructor(public _service: SharedService,public router: Router) {
+    /// router: Router
+   }
 
   ngOnInit() {
-  this.GetTaskList();
+  this.GetTaskList('startdate');
    this.ParentTask = null;
+   this.GetProjectList('startdate');
 
  }
 
@@ -68,7 +73,7 @@ return;
    this.TaskList=this.TaskListMaster;
  }
  SearchByTask() { 
-   this.TaskList = this.TaskListMaster.filter(x => x.Task.toLowerCase().includes(this.searchTask.toLowerCase())); 
+   this.TaskList = this.TaskListMaster.filter(x => x.Project_Name.toLowerCase().includes(this.searchTask.toLowerCase())); 
  }
  
  SearchByParentTask() { 
@@ -110,14 +115,40 @@ return;
    });
  }
 
- GetTaskList() {
-   this._service.GetTaskList().subscribe((res: Response) => {
+ GetTaskList(data) {
+   this._service.GetTaskList(data).subscribe((res: Response) => {
      this.TaskListMaster = res.json();
      this.TaskList=this.TaskListMaster;
    }, (error) => {
      console.log("Error While Processing Results");
    });
  }
+
+ GetProject(data)
+{
+  
+  this.searchTask=data.Project;
+  this.SearchByTask();
+  
+}
+
+GetProjectList(data)
+{
+  this._service.GetProjectList(data).subscribe((res: Response) => {
+    this.data = res.json();
+    if(this.data!=null){
+      this.projectList=this.data;
+     
+    }
+    else{
+      alert("Unable to to get user details");
+    }
+    
+  }, (error) => {
+    console.log("Error While Processing Results");
+  });
+}
+
 
   ToggleView(type)
   {
@@ -134,7 +165,7 @@ return;
      this.ViewTask=true;
      this.AddMenucss='';
      this.ViewMenucss='active';
-     this.GetTaskList();
+     this.GetTaskList('startdate');
    }
   }
 
@@ -159,16 +190,17 @@ return;
      this.data = res.json();
      //this.GetParentTask();
      if(this.data!=null){
+      this.router.navigate(['../task',this.data.Task_ID]);
       
-      this.ToggleView('add');
-      this.TaskName=this.data.Task;
-      //this.StartDate=this.data.Start_Date.toString().slice(0,10);
-      this.StartDate= new Date(this.data.Start_Date).toISOString().substring(0, 10);
-     // alert(this.StartDate);
-      this.EndDate= new Date(this.data.End_Date).toISOString().substring(0, 10);
-      this.Priority=this.data.Priority;
-      this.ParentTask=(this.data.Parent_ID=='0')?null:this.data.Parent_ID;
-      this.Task_ID=this.data.Task_ID;
+    //   this.ToggleView('add');
+    //   this.TaskName=this.data.Task;
+    //   //this.StartDate=this.data.Start_Date.toString().slice(0,10);
+    //   this.StartDate= new Date(this.data.Start_Date).toISOString().substring(0, 10);
+    //  // alert(this.StartDate);
+    //   this.EndDate= new Date(this.data.End_Date).toISOString().substring(0, 10);
+    //   this.Priority=this.data.Priority;
+    //   this.ParentTask=(this.data.Parent_ID=='0')?null:this.data.Parent_ID;
+    //   this.Task_ID=this.data.Task_ID;
 //     $('#startdate').val(this.StartDate);
       //document.getElementById('startdate')[0].value=this.StartDate;
 //alert(this.StartDate);
@@ -193,7 +225,7 @@ return;
      if(!this.data){
       
    alert("task ended succesfully");
-   this.GetTaskList();
+   this.GetTaskList('startdate');
      }
      else{
        alert("Unable to end task data");

@@ -3,35 +3,34 @@
         <h3>View Task</h3>
         <div class="row">
             <div class="col-sm-6">
-                <label for="Task" class="control-label">Task:</label>
-                <input type="text" class="form-control" id="taskName" [(ngModel)]="searchTask" placeholder="Task Name">
+                <label for="Task" class="control-label">Project:</label>
+                <input type="text" class="form-control" readonly="true" id="taskName" [(ngModel)]="searchTask" placeholder="Project Name">
             </div>
-            <div class="col-sm-6">
+            <div class="row margin-top10">
+                    <button type="button" data-toggle="modal" data-target="#myModal"  class="btn btn-primary">Search</button>
+                </div>
+            <!-- <div class="col-sm-6">
                 <label for="Parent Task" class="control-label">Parent Task:</label>
                 <input type="text" class="form-control" id="parentTask" [(ngModel)]="searchPTask" placeholder="Parent Task">
-            </div>
+            </div> -->
         </div>
         <div class="row margin-top10">
             <div class="col-sm-3">
-                <label for="Task" class="control-label">Priority From:</label>
-                <input type="text" class="form-control" id="priorityfrom" [(ngModel)]="searchpriorityFrom" placeholder="Priority From">
+                    <button type="button" (click)="GetTaskList('startdate')" class="btn btn-primary">Start Date</button>
             </div>
             <div class="col-sm-3">
-                <label for="Parent Task" class="control-label">Priority To:</label>
-                <input type="text" class="form-control" id="priorityTo"[(ngModel)]="SearchPriorityTo" placeholder="Priority To">
+                    <button type="button" (click)="GetTaskList('enddate')" class="btn btn-primary">End Date</button>
             </div>
             <div class="col-sm-3">
-                <label for="Task" class="control-label">Start Date:</label>
-                <input type="text" class="form-control" [(ngModel)]="searchFromDate" id="startdate" placeholder="Start Date">
+                    <button type="button" (click)="GetTaskList('priority')" class="btn btn-primary">Priority</button>
             </div>
             <div class="col-sm-3">
-                <label for="Parent Task" class="control-label">End Date:</label>
-                <input type="text" class="form-control" [(ngModel)]="searchToDate" id="endDate" placeholder="End Date">
+                    <button type="button" (click)="GetTaskList('completed')" class="btn btn-primary">Completed</button>
             </div>
         </div>
-        <div class="row margin-top10">
+        <!-- <div class="row margin-top10">
             <button type="button" (click)="SearchTask()" class="btn btn-primary">Search</button>
-        </div>
+        </div> -->
     </div>
     <div class="container margin-top10">
         <div id="no-more-tables">
@@ -55,7 +54,7 @@
                     <td data-title="Start">{{task.StartDate |date:'MM-dd-yyyy'}}</td>
                     <td data-title="End">{{task.EndDate|date:'MM-dd-yyyy'}}</td>
                     
-                    <td><button type="button" (click)='EditTask(task)' class="btn btn-primary btn-sm">Edit</button>
+                    <td><button type="button" (click)='EditTask(task)'  class="btn btn-primary btn-sm">Edit</button>
                     <button *ngIf="task.IsTaskEnded!=1" type="button" (click)='EndTask(task)'  class="btn btn-primary btn-sm">End Task</button></td>
                 </tr>
             </tbody>
@@ -63,3 +62,38 @@
             </div>
     </div>
     </div>
+    <div class="modal" id="myModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Project Data</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+          
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div id="no-more-tables">
+                        <table class="col-sm-12 table-bordered table-striped table-condensed cf">
+                       
+                            <tbody>
+                                <tr *ngFor="let proj of projectList" > 
+                                    <!-- <td><div class="usertable-div">{{user.FirstName}}</div><div class="usertable-div">{{user.LastName}}</div><div class="usertable-div">{{user.EmployeeID}}</div></td>  -->
+                                    <td><a (click)="GetProject(proj)">{{proj.Project}}</a></td>
+                                </tr>
+                              
+                            </tbody>
+                        </table>
+                        </div>
+                </div>
+          
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+          
+              </div>
+            </div>
+          </div>
+    

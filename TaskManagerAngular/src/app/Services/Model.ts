@@ -9,6 +9,9 @@ export class Task {
     IsTaskEnded : number;
     Start_Date:string;
     End_Date:string;
+    EmployeeId:string;
+    ProjectID:string;
+    Project_ID:string;
 }
 
 export class User {

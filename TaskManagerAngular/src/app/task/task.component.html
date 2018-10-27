@@ -114,7 +114,7 @@
                             <tbody>
                                 <tr *ngFor="let user of userList" > 
                                     <!-- <td><div class="usertable-div">{{user.FirstName}}</div><div class="usertable-div">{{user.LastName}}</div><div class="usertable-div">{{user.EmployeeID}}</div></td>  -->
-                                    <td><a (click)="GetEmployee(user.EmployeeID)">{{user.FirstName}} {{user.LastName}}</a></td>
+                                    <td><a (click)="GetEmployee(user.UserID)">{{user.FirstName}} {{user.LastName}}</a></td>
                                 </tr>
                               
                             </tbody>

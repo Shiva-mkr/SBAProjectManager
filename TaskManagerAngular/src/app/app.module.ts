@@ -13,6 +13,7 @@ import { ProjectComponent } from './project/project.component';
 const appRoutes: Routes = [
   { path: 'user', component: UserComponent },
   { path: 'task',      component: TaskComponent },
+  { path: 'task/:id',      component: TaskComponent },
   { path: 'viewTask', component: ViewTaskComponent },  
   { path: 'project', component: ProjectComponent }, 
   { path: '',redirectTo: '/task', pathMatch: 'full'  }  

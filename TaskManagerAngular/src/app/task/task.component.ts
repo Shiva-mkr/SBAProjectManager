@@ -3,6 +3,7 @@ import { SharedService } from '../../app/Services/Services';
 import { Http, Response,HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { Task } from './../Services/Model';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -38,13 +39,17 @@ TaskListMaster:any;
   projectlist:any;
   ProjectID='';
   EmployeeID='';
-  constructor(public _service: SharedService) { }
+  constructor(public _service: SharedService,public route: ActivatedRoute) { }
 
   ngOnInit() {
   this.GetParentTask();
    this.ParentTask = null;
    this.GetProjectList('startdate');  
    this.GetUser('firstname');
+   let id = this.route.snapshot.paramMap.get('id');
+   if(id!=null){
+  this.EditTask(id);
+   }
  }
 
  SearchTask()
@@ -114,8 +119,8 @@ return;
    });
  }
 
- GetTaskList() {
-   this._service.GetTaskList().subscribe((res: Response) => {
+ GetTaskList(field) {
+   this._service.GetTaskList(field).subscribe((res: Response) => {
      this.TaskListMaster = res.json();
      this.TaskList=this.TaskListMaster;
    }, (error) => {
@@ -138,7 +143,7 @@ return;
      this.ViewTask=true;
      this.AddMenucss='';
      this.ViewMenucss='active';
-     this.GetTaskList();
+     this.GetTaskList('startdate');
    }
   }
 
@@ -159,13 +164,15 @@ return;
   EditTask(param)
   {
    
-   this._service.GetTaskById(param.Task_ID).subscribe((res: Response) => {
+   this._service.GetTaskById(param).subscribe((res: Response) => {
      this.data = res.json();
      //this.GetParentTask();
      if(this.data!=null){
       
       this.ToggleView('add');
       this.TaskName=this.data.Task;
+      this.ProjectID=this.data.Project_ID;
+      this.EmployeeID=this.data.EmployeeId
       //this.StartDate=this.data.Start_Date.toString().slice(0,10);
       this.StartDate= new Date(this.data.Start_Date).toISOString().substring(0, 10);
      // alert(this.StartDate);
@@ -197,7 +204,7 @@ return;
      if(!this.data){
       
    alert("task ended succesfully");
-   this.GetTaskList();
+   this.GetTaskList('startdate');
      }
      else{
        alert("Unable to end task data");
@@ -219,7 +226,9 @@ return;
       this.data.EndDate=this.EndDate;
       this.data.Priority=this.Priority;
         this.data.Task_ID=this.Task_ID;
-      if (this.data.Task.length == 0 || this.data.StartDate.length == 0 || this.data.EndDate.length == 0) { 
+        this.data.EmployeeId=this.EmployeeID;
+        this.data.ProjectID=this.ProjectID;
+      if (this.data.Task.length == 0 || this.data.StartDate.length == 0 || this.data.EndDate.length == 0||this.data.EmployeeId.length==0||this.ProjectID.length==0) { 
              alert("Please enter all mandatory fields"); 
                return; 
             } 
