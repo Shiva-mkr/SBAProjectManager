@@ -58,20 +58,20 @@ namespace TaskManager.Service.Tests.Controllers
             Assert.AreEqual("OK", actionResult.StatusCode.ToString());
         }
 
-        [TestCase(2)]
-        public void GetTaskById(int id)
-        {
+        //[TestCase(2)]
+        //public void GetTaskById(int id)
+        //{
 
-            TaskController controller = new TaskController();
+        //    TaskController controller = new TaskController();
 
-            controller.Request = new HttpRequestMessage();
+        //    controller.Request = new HttpRequestMessage();
 
-            controller.Configuration = new HttpConfiguration();
+        //    controller.Configuration = new HttpConfiguration();
 
-            var actionResult = controller.GetTaskById(id);
+        //    var actionResult = controller.GetTaskById(id);
 
-            Assert.AreEqual("OK", actionResult.StatusCode.ToString());
-        }
+        //    Assert.AreEqual("OK", actionResult.StatusCode.ToString());
+        //}
 
         [TestCase()]
         public void ParentTask()
